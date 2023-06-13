@@ -38,8 +38,8 @@ because through this God wants to speak to you and wants to help you so that you
 
 ### Built With
 These are the tools and frameworks that I used for this project.
-* [Flutter](https://ionicframework.com/)
-* [Dart](https://angular.io/)
+* [Flutter](https://flutter.dev/)
+* [Dart](https://dart.dev/)
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Postman](https://www.postman.com/)
 
