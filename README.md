@@ -60,9 +60,9 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/ajoshua04/TASCD-APP-FLUTTER
    ```
-2. Get the dependecies
+2. Get the dependecies (run in repo console)
    ```sh
-   flutter pub get (in repo console)
+   flutter pub get
    ```
 
 ### Run in the Phone
