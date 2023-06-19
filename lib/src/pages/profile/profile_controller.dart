@@ -30,7 +30,7 @@ class ProfileController {
     key.currentState!.openDrawer();
   }
 
-  void goToConfguration() {
+  void goToConfiguration() {
     key.currentState!.closeDrawer();
     Get.offAllNamed('/configuration');
   }

@@ -164,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return InkWell(
       onTap: onPressed,
       child: SizedBox(
-        height: 40,
+        height: 50,
         child: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: Row(
@@ -183,112 +183,6 @@ class _ProfilePageState extends State<ProfilePage> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _drawer() {
-    return Drawer(
-      child: Material(
-        color: Colors.white,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(color: MyColors.primaryColor),
-                child: headerWidget()),
-            Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.53,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 90.0),
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.local_fire_department_outlined,
-                                  size: 22,
-                                  color: Colors.orangeAccent[400],
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('0 RACHA'),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: MyColors.primaryOpacityColor,
-                        ),
-                        child: _drawerItem(
-                            color: Colors.black26,
-                            name: 'Perfil',
-                            icon: Icons.person_pin_rounded,
-                            onPressed: () => {()}),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Mi TASCD',
-                          icon: Icons.coffee,
-                          onPressed: () => {_con.goToMain()}),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Mi Diario',
-                          icon: Icons.menu_book,
-                          onPressed: () => {_con.goToDiary()}),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Configuración',
-                          icon: Icons.settings,
-                          onPressed: () => {_con.goToConfguration()}),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  height: 10,
-                  color: Colors.grey,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                _drawerItem(
-                    color: Colors.black54,
-                    name: 'Donaciones',
-                    icon: Icons.cases_rounded,
-                    onPressed: () => {
-                          launchUrl(Uri.parse('https://cbint.org/donaciones'),
-                              mode: LaunchMode.externalApplication)
-                        }),
-                const SizedBox(
-                  height: 30,
-                ),
-                _drawerItem(
-                    color: Colors.red,
-                    name: 'Cerrar sesion',
-                    icon: Icons.logout,
-                    onPressed: () => {_con.logout()}),
-              ],
-            ),
-          ],
         ),
       ),
     );
@@ -325,6 +219,116 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         )
       ],
+    );
+  }
+
+  Widget _drawer() {
+    return Drawer(
+      child: Material(
+        color: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+                decoration: BoxDecoration(color: MyColors.primaryColor),
+                child: headerWidget()),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.53,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 83.0, vertical: 10),
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.local_fire_department_outlined,
+                                    size: 22,
+                                    color: Colors.orangeAccent[400],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text('0 RACHA'),
+                                ],
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: MyColors.primaryOpacityColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: _drawerItem(
+                              color: Colors.black26,
+                              name: 'Perfil',
+                              icon: Icons.coffee,
+                              onPressed: () => {}),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _drawerItem(
+                            color: Colors.black54,
+                            name: 'Mi TASCD',
+                            icon: Icons.coffee,
+                            onPressed: () => {_con.goToMain()}),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _drawerItem(
+                            color: Colors.black54,
+                            name: 'Mi Diario',
+                            icon: Icons.menu_book,
+                            onPressed: () => {_con.goToDiary()}),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _drawerItem(
+                            color: Colors.black54,
+                            name: 'Configuración',
+                            icon: Icons.settings,
+                            onPressed: () => {_con.goToConfiguration()}),
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    height: 10,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _drawerItem(
+                      color: Colors.black54,
+                      name: 'Donaciones',
+                      icon: Icons.cases_rounded,
+                      onPressed: () => {
+                            launchUrl(Uri.parse('https://cbint.org/donaciones'),
+                                mode: LaunchMode.externalApplication)
+                          }),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _drawerItem(
+                      color: Colors.red,
+                      name: 'Cerrar sesion',
+                      icon: Icons.logout,
+                      onPressed: () => {_con.logout()}),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
