@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unnecessary_new, use_build_context_synchronously
+// ignore_for_file: prefer_final_fields, unnecessary_new, use_build_context_synchronously, await_only_futures
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,7 @@ class MainController {
     this.context = context;
     this.refresh = refresh;
     user = User.fromJson(await _sharedPref.read('user'));
+    refresh();
     await verseProvider.init(context, user!);
     await getVerse();
     refresh();
@@ -38,18 +39,22 @@ class MainController {
   }
 
   void goToProfile() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/profile');
   }
 
   void goToDiary() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/diary');
   }
 
   void goToConfiguration() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/configuration');
   }
 
   void goToPampe() {
+    key.currentState!.closeDrawer();
     Get.toNamed('/pampe');
   }
 

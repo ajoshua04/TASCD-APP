@@ -46,6 +46,11 @@ dependencies:
   url_launcher: ^6.1.11
   get: ^5.0.0-release-candidate-4
   flutter_quill: ^7.2.4
+  vsc_quill_delta_to_html: ^1.0.3
+  flutter_svg: ^2.0.7
+  rive: ^0.7.16
+  flutter_zoom_drawer: ^3.1.1
+  
  
   
 
@@ -78,6 +83,8 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/json/
+    - assets/svg/
 
   fonts:
     - family: NimbusSans

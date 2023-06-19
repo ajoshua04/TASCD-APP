@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, unnecessary_new, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tascd/src/pages/main/main_controller.dart';
-import 'package:html_unescape/html_unescape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/my_colors.dart';
@@ -69,26 +69,36 @@ class _MainPageState extends State<MainPage> {
 
   Widget _htmlContainer() {
     return Container(
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
+          border: Border.all(color: Colors.grey),
+        ),
+        child: _con.htmlData != null
+            ? Html(
+                data: _con.htmlData!
+                    .split('<p class="lead"><b>Compartir</b></p> <br>')[0],
+                onLinkTap: (url, attributes, element) async {
+                  await launchUrl(Uri.parse(url!),
+                      mode: LaunchMode.externalApplication);
+                },
+              )
+            : _loadingWidget());
+  }
+
+  Widget _loadingWidget() {
+    return Container(
+      height: 300,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
-        border: Border.all(color: Colors.grey),
       ),
-      child: Html(
-        data: _con.htmlData ?? '<h1>Cargando...</h1>',
-        style: {
-          "body": Style(
-            fontSize: FontSize(15.0),
-            fontFamily: 'Roboto',
-          ),
-          "*": Style(color: Colors.black),
-        },
-        onLinkTap: (url, attributes, element) async {
-          await launchUrl(Uri.parse(url!),
-              mode: LaunchMode.externalApplication);
-        },
+      child: Lottie.asset(
+        'assets/json/loading_widget.json',
+        width: 100,
+        height: 100,
       ),
     );
   }
@@ -224,7 +234,10 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.black54,
                     name: 'Donaciones',
                     icon: Icons.cases_rounded,
-                    onPressed: () => {_con.logout()}),
+                    onPressed: () => {
+                          launchUrl(Uri.parse('https://cbint.org/donaciones'),
+                              mode: LaunchMode.externalApplication)
+                        }),
                 const SizedBox(
                   height: 30,
                 ),

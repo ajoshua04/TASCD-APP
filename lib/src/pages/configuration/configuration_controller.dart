@@ -31,14 +31,17 @@ class ConfigurationController {
   }
 
   void goToProfile() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/profile');
   }
 
   void goToDiary() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/diary');
   }
 
   void goToMain() {
+    key.currentState!.closeDrawer();
     Get.offAllNamed('/main');
   }
 }

@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:lottie/lottie.dart';
+import 'package:tascd/src/models/diary.dart';
 import 'package:tascd/src/pages/diary/diary_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,22 +51,89 @@ class _DiaryPageState extends State<DiaryPage> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20.0,
-                        left: (MediaQuery.of(context).size.height * 0.20)),
-                    child: Text(
-                      'Diary',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
+                  _con.diaries != null
+                      ? ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          children: _con.diaries != null
+                              ? _con.diaries!.map((Diary diary) {
+                                  return _containerDiary(diary);
+                                }).toList()
+                              : [])
+                      : _loadingWidget()
                 ],
               ),
-            ),
+            )
           ],
         ));
+  }
+
+  Widget _loadingWidget() {
+    return Container(
+      height: 300,
+      width: double.infinity,
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(blurRadius: 1, color: Color.fromARGB(255, 230, 227, 227))
+        ],
+        border: Border.all(color: Colors.grey),
+      ),
+      child: Lottie.asset(
+        'assets/json/loading_widget.json',
+        width: 100,
+        height: 100,
+      ),
+    );
+  }
+
+  Widget _containerDiary(Diary? diary) {
+    return GestureDetector(
+      onTap: () {
+        _con.goToDetail(diary);
+      },
+      child: Container(
+          padding: const EdgeInsets.all(15),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 1, color: Color.fromARGB(255, 230, 227, 227))
+            ],
+            border: Border.all(color: Colors.grey),
+          ),
+          child: Column(
+            children: [
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    diary!.verseDate!,
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 95, 95, 95),
+                        fontSize: 13),
+                  )),
+              Html(
+                  data: (diary.verseHtml!.split('href="https://')[0]).substring(
+                      0,
+                      ((diary.verseHtml!.split('href="https://')[0]).length) -
+                          14)),
+              const Divider(
+                thickness: 1,
+                height: 10,
+                color: Colors.grey,
+              ),
+              Html(
+                data: diary.qtdd!,
+                style: {
+                  "*": Style(color: Colors.grey),
+                },
+              ),
+            ],
+          )),
+    );
   }
 
   Widget _drawerItem(
@@ -186,7 +255,10 @@ class _DiaryPageState extends State<DiaryPage> {
                     color: Colors.black54,
                     name: 'Donaciones',
                     icon: Icons.cases_rounded,
-                    onPressed: () => {_con.logout()}),
+                    onPressed: () => {
+                          launchUrl(Uri.parse('https://cbint.org/donaciones'),
+                              mode: LaunchMode.externalApplication)
+                        }),
                 const SizedBox(
                   height: 30,
                 ),

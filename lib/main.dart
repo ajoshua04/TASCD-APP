@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tascd/splash.dart';
 import 'package:tascd/src/pages/configuration/configuration_page.dart';
+import 'package:tascd/src/pages/diary/detail/diary_detail_page.dart';
 import 'package:tascd/src/pages/diary/diary_page.dart';
 import 'package:tascd/src/pages/login/login_page.dart';
 import 'package:tascd/src/pages/main/main_page.dart';
@@ -29,36 +31,44 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: "App TASCD",
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/splash',
       getPages: [
+        GetPage(
+            name: '/splash',
+            page: (() => Splash()),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/login',
             page: (() => LoginPage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/register',
             page: (() => RegisterPage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/main',
             page: (() => MainPage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/configuration',
             page: (() => ConfigurationPage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/diary',
             page: (() => DiaryPage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/profile',
             page: (() => ProfilePage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
         GetPage(
             name: '/pampe',
             page: (() => PampePage()),
-            transition: Transition.native),
+            transition: Transition.rightToLeft),
+        GetPage(
+            name: '/diary/detail',
+            page: (() => DiaryDetail()),
+            transition: Transition.rightToLeft),
       ],
       theme: ThemeData(
         colorScheme:

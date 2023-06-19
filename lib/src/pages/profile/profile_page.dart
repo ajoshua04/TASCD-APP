@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tascd/src/pages/profile/profile_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/my_colors.dart';
 
@@ -32,37 +33,126 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[100],
         key: _con.key,
         appBar: AppBar(),
         drawer: _drawer(),
-        body: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage("assets/images/background_qtdd.png"),
-                  fit: BoxFit.fill),
-              color: Colors.white,
-            )),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20.0,
-                        left: (MediaQuery.of(context).size.height * 0.20)),
-                    child: Text(
-                      'Perfil',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _imageProfile(),
+              _containerInfo(),
+              _containerDivider(),
+              _buttonEditProfile(),
+              _buttonForgotPassword(),
+              _buttonDeleteProfile()
+            ],
+          ),
         ));
+  }
+
+  Widget _imageProfile() {
+    return Container(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 30.0),
+        child: CircleAvatar(
+          radius: 70,
+          backgroundImage: AssetImage('assets/images/user-profile.jpg'),
+        ),
+      ),
+    );
+  }
+
+  Widget _containerInfo() {
+    return Container(
+      padding: EdgeInsets.only(top: 70, left: 40),
+      alignment: Alignment.topLeft,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                _con.user!.firstName!,
+                style: TextStyle(fontSize: 20),
+              )),
+          SizedBox(
+            height: 25,
+          ),
+          Align(
+              alignment: Alignment.topLeft,
+              child:
+                  Text(_con.user!.lastName!, style: TextStyle(fontSize: 20))),
+          SizedBox(
+            height: 25,
+          ),
+          Align(
+              alignment: Alignment.topLeft,
+              child: Text(_con.user!.email!, style: TextStyle(fontSize: 20))),
+        ],
+      ),
+    );
+  }
+
+  Widget _buttonEditProfile() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            padding: EdgeInsets.symmetric(vertical: 15),
+            backgroundColor: MyColors.primaryColor),
+        child: Text("Editar"),
+      ),
+    );
+  }
+
+  Widget _buttonDeleteProfile() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            padding: EdgeInsets.symmetric(vertical: 15),
+            backgroundColor: Colors.red),
+        child: Text("Eliminar mi cuenta "),
+      ),
+    );
+  }
+
+  Widget _buttonForgotPassword() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            padding: EdgeInsets.symmetric(vertical: 15),
+            backgroundColor: Colors.white,
+            foregroundColor: MyColors.primaryColor),
+        child: Text("Olvidé mi contraseña"),
+      ),
+    );
+  }
+
+  Widget _containerDivider() {
+    return Padding(
+      padding: EdgeInsets.only(top: 70, bottom: 40),
+      child: const Divider(
+        thickness: 1,
+        height: 10,
+        color: Colors.grey,
+      ),
+    );
   }
 
   Widget _drawerItem(
@@ -184,7 +274,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: Colors.black54,
                     name: 'Donaciones',
                     icon: Icons.cases_rounded,
-                    onPressed: () => {_con.logout()}),
+                    onPressed: () => {
+                          launchUrl(Uri.parse('https://cbint.org/donaciones'),
+                              mode: LaunchMode.externalApplication)
+                        }),
                 const SizedBox(
                   height: 30,
                 ),

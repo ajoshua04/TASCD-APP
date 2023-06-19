@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context);
+      _con.init(context, refresh);
     });
   }
 
@@ -46,10 +46,15 @@ class _LoginPageState extends State<LoginPage> {
                 _textDontHaveAccount()
               ],
             ),
+            _progressIndicator(),
           ],
         ),
       ),
     ));
+  }
+
+  void refresh() {
+    setState(() {});
   }
 
   Widget _lottieAnimation() {
@@ -61,14 +66,34 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _progressIndicator() {
+    return _con.isFetching
+        ? Padding(
+            padding: const EdgeInsets.only(top: 250.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: MyColors.primaryOpacityColor),
+              padding: const EdgeInsets.all(50),
+              margin: const EdgeInsets.all(50),
+              child: Center(
+                child: const CircularProgressIndicator(),
+              ),
+            ),
+          )
+        : Container();
+  }
+
   Widget _buttonLogin() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-        onPressed: () {
-          _con.login();
-        },
+        onPressed: _con.isFetching
+            ? null
+            : () {
+                _con.login();
+              },
         style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

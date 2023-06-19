@@ -16,14 +16,19 @@ class LoginController {
 
   UsersProvider usersProvider = new UsersProvider();
   SharedPref _sharedPref = new SharedPref();
+  Function? refresh;
 
-  Future? init(BuildContext context) async {
+  bool isFetching = false;
+
+  Future? init(BuildContext context, Function refresh) async {
     this.context = context;
+    this.refresh = refresh;
     await usersProvider.init(context);
     User user = User.fromJson(await _sharedPref.read('user') ?? {});
     if (user.accessToken != null) {
       Get.offAllNamed('/main');
     }
+    refresh();
   }
 
   void goToRegsiterPage() {
@@ -31,17 +36,25 @@ class LoginController {
   }
 
   void login() async {
+    isFetching = true;
+    refresh!();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
     ResponseApi? responseApi = await usersProvider.login(email, password);
 
     if (responseApi!.userLoginDto != null) {
-      User user =
-          User.fromJson(responseApi.userLoginDto as Map<String, dynamic>);
-      _sharedPref.save('user', user.toJson());
-      Get.offAllNamed('/main');
+      Future.delayed(const Duration(seconds: 3), () {
+        User user =
+            User.fromJson(responseApi.userLoginDto as Map<String, dynamic>);
+        _sharedPref.save('user', user.toJson());
+        Get.offAllNamed('/main');
+      });
+    } else {
+      isFetching = false;
+      refresh!();
     }
+
     MySnackbar.show(context!, responseApi.message);
   }
 }

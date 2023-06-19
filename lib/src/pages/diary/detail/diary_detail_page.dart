@@ -1,25 +1,29 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:tascd/src/pages/configuration/configuration_controller.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
+import 'package:tascd/src/models/diary.dart';
+import 'package:tascd/src/pages/diary/detail/diary_detail_controller.dart';
 
-import '../../utils/my_colors.dart';
+import '../../../utils/my_colors.dart';
 
-class ConfigurationPage extends StatefulWidget {
-  const ConfigurationPage({super.key});
+class DiaryDetail extends StatefulWidget {
+  const DiaryDetail({super.key});
 
   @override
-  State<ConfigurationPage> createState() => _ConfigurationPageState();
+  State<DiaryDetail> createState() => _DiaryDetailState();
 }
 
-class _ConfigurationPageState extends State<ConfigurationPage> {
-  ConfigurationController _con = new ConfigurationController();
+class _DiaryDetailState extends State<DiaryDetail> {
+  DiaryController _con = new DiaryController();
+  dynamic? argumentData;
 
   @override
   void initState() {
     super.initState();
+    argumentData = Get.arguments;
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
@@ -35,7 +39,6 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
     return Scaffold(
         key: _con.key,
         appBar: AppBar(),
-        drawer: _drawer(),
         body: Stack(
           children: [
             Container(
@@ -47,20 +50,48 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             )),
             SingleChildScrollView(
               child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20.0,
-                        left: (MediaQuery.of(context).size.height * 0.11)),
-                    child: Text(
-                      'Configuraciones',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                ],
+                children: [_diaryDetail(argumentData[0]["diary"])],
               ),
+            ),
+          ],
+        ));
+  }
+
+  Widget _diaryDetail(Diary diary) {
+    return Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(blurRadius: 1, color: Color.fromARGB(255, 230, 227, 227))
+          ],
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Column(
+          children: [
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  diary.verseDate!,
+                  style: TextStyle(
+                      color: const Color.fromARGB(255, 95, 95, 95),
+                      fontSize: 13),
+                )),
+            Html(
+              data: diary.verseHtml!
+                  .split('<p class="lead"><b>Compartir</b></p> <br>')[0],
+            ),
+            const Divider(
+              thickness: 1,
+              height: 10,
+              color: Colors.grey,
+            ),
+            Html(
+              data: diary.qtdd!,
+              style: {
+                "*": Style(color: Colors.grey),
+              },
             ),
           ],
         ));
@@ -160,16 +191,11 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: MyColors.primaryOpacityColor,
-                        ),
-                        child: _drawerItem(
-                            color: Colors.black26,
-                            name: 'Configuración',
-                            icon: Icons.settings,
-                            onPressed: () => {()}),
-                      ),
+                      _drawerItem(
+                          color: Colors.black54,
+                          name: 'Configuración',
+                          icon: Icons.settings,
+                          onPressed: () => {()}),
                     ],
                   ),
                 ),
@@ -185,10 +211,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                     color: Colors.black54,
                     name: 'Donaciones',
                     icon: Icons.cases_rounded,
-                    onPressed: () => {
-                          launchUrl(Uri.parse('https://cbint.org/donaciones'),
-                              mode: LaunchMode.externalApplication)
-                        }),
+                    onPressed: () => {_con.logout()}),
                 const SizedBox(
                   height: 30,
                 ),

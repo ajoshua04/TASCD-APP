@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../models/response_api.dart';
-import '../../models/user.dart';
-import '../../utils/shared_pref.dart';
+import '../../../models/user.dart';
+import '../../../utils/shared_pref.dart';
 
-class ProfileController {
+class DiaryController {
   BuildContext? context;
   SharedPref _sharedPref = new SharedPref();
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
@@ -31,17 +30,18 @@ class ProfileController {
   }
 
   void goToConfguration() {
-    key.currentState!.closeDrawer();
     Get.offAllNamed('/configuration');
   }
 
+  void goToProfile() {
+    Get.offAllNamed('/profile');
+  }
+
   void goToDiary() {
-    key.currentState!.closeDrawer();
     Get.offAllNamed('/diary');
   }
 
   void goToMain() {
-    key.currentState!.closeDrawer();
     Get.offAllNamed('/main');
   }
 }

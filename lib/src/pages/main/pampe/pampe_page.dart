@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, unnecessary_new
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:tascd/src/pages/main/pampe/pampe_controller.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 import '../../../utils/my_colors.dart';
 
@@ -31,10 +34,11 @@ class _PampePageState extends State<PampePage> {
     setState(() {});
   }
 
-  @override
+  /* @override
   Widget build(BuildContext context) {
     return Scaffold(
         //key: _con.key,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(),
         drawer: _drawer(),
         body: Stack(
@@ -44,7 +48,7 @@ class _PampePageState extends State<PampePage> {
               image: const DecorationImage(
                   image: AssetImage("assets/images/background_pampe.png"),
                   fit: BoxFit.fill),
-              color: Colors.white,
+              color: Colors.grey,
             )),
             SingleChildScrollView(
               child: Column(
@@ -58,6 +62,36 @@ class _PampePageState extends State<PampePage> {
             ),
           ],
         ));
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                  image: AssetImage("assets/images/background_qtdd.png"),
+                  fit: BoxFit.fill),
+              color: Colors.grey,
+            )),
+        Scaffold(
+            backgroundColor: Colors.transparent,
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _containerPampe(),
+                  _textQTDD(),
+                  _quillKit(),
+                  _buttonGuardar()
+                ],
+              ),
+            )),
+      ],
+    );
   }
 
   Widget _buttonGuardar() {
