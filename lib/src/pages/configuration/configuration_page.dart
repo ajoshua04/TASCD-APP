@@ -103,14 +103,14 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
     return Row(
       children: [
         const CircleAvatar(
-          radius: 40,
+          radius: 30,
           backgroundImage: AssetImage('assets/images/user-profile.jpg'),
         ),
         const SizedBox(
           width: 20,
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 44),
+          padding: const EdgeInsets.only(top: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -137,109 +137,144 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
     return Drawer(
       child: Material(
         color: Colors.white,
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Stack(
           children: [
-            DrawerHeader(
-                decoration: BoxDecoration(color: MyColors.primaryColor),
-                child: headerWidget()),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.53,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 83.0, vertical: 10),
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.local_fire_department_outlined,
-                                    size: 22,
-                                    color: Colors.orangeAccent[400],
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text('0 RACHA'),
-                                ],
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _drawerItem(
-                            color: Colors.black54,
-                            name: 'Perfil',
-                            icon: Icons.person_pin_rounded,
-                            onPressed: () => {_con.goToProfile()}),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _drawerItem(
-                            color: Colors.black54,
-                            name: 'Mi TASCD',
-                            icon: Icons.coffee,
-                            onPressed: () => {_con.goToMain()}),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _drawerItem(
-                            color: Colors.black54,
-                            name: 'Mi Diario',
-                            icon: Icons.menu_book,
-                            onPressed: () => {_con.goToDiary()}),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: MyColors.primaryOpacityColor,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: _drawerItem(
-                              color: Colors.black26,
-                              name: 'Configuración',
-                              icon: Icons.settings,
-                              onPressed: () => {}),
-                        ),
-                      ],
-                    ),
+            Positioned(
+              top: -60,
+              left: -20,
+              child: Transform.rotate(
+                angle: 2.9,
+                child: Container(
+                  width: 400,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: MyColors.primaryColor,
+                    borderRadius: BorderRadius.circular(45),
+                    border: Border.all(color: MyColors.primaryColor),
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 20, color: Colors.blue)
+                    ],
                   ),
-                  const Divider(
-                    thickness: 1,
-                    height: 10,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  _drawerItem(
-                      color: Colors.black54,
-                      name: 'Donaciones',
-                      icon: Icons.cases_rounded,
-                      onPressed: () => {
-                            launchUrl(Uri.parse('https://cbint.org/donaciones'),
-                                mode: LaunchMode.externalApplication)
-                          }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  _drawerItem(
-                      color: Colors.red,
-                      name: 'Cerrar sesion',
-                      icon: Icons.logout,
-                      onPressed: () => {_con.logout()}),
-                ],
+                ),
               ),
+            ),
+            ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                SizedBox(
+                  height: 120,
+                  child: DrawerHeader(
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(color: MyColors.primaryColor),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25.0),
+                        child: headerWidget(),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 75),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.53,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 83.0, vertical: 10),
+                              child: _buttonStreak(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _drawerItem(
+                                color: Colors.black54,
+                                name: 'Perfil',
+                                icon: Icons.person_pin_rounded,
+                                onPressed: () => {_con.goToProfile()}),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _drawerItem(
+                                color: Colors.black54,
+                                name: 'Mi TASCD',
+                                icon: Icons.coffee,
+                                onPressed: () => {_con.goToMain()}),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _drawerItem(
+                                color: Colors.black54,
+                                name: 'Mi Diario',
+                                icon: Icons.menu_book,
+                                onPressed: () => {_con.goToDiary()}),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: MyColors.primaryOpacityColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: _drawerItem(
+                                  color: Colors.black26,
+                                  name: 'Configuración',
+                                  icon: Icons.settings,
+                                  onPressed: () => {}),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 10,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      _drawerItem(
+                          color: Colors.black54,
+                          name: 'Donaciones',
+                          icon: Icons.cases_rounded,
+                          onPressed: () => {
+                                launchUrl(
+                                    Uri.parse('https://cbint.org/donaciones'),
+                                    mode: LaunchMode.externalApplication)
+                              }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _drawerItem(
+                          color: Colors.red,
+                          name: 'Cerrar sesion',
+                          icon: Icons.logout,
+                          onPressed: () => {_con.logout()}),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buttonStreak() {
+    return ElevatedButton(
+        onPressed: () {},
+        child: Row(
+          children: [
+            Icon(
+              Icons.local_fire_department_outlined,
+              size: 22,
+              color: Colors.orangeAccent[400],
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text('0 RACHA'),
+          ],
+        ));
   }
 }
