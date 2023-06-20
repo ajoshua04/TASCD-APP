@@ -126,10 +126,7 @@ class _DiaryPageState extends State<DiaryPage> {
                 color: Colors.grey,
               ),
               Html(
-                data: diary.qtdd!,
-                style: {
-                  "*": Style(color: Colors.grey),
-                },
+                data: diary.qtdd,
               ),
             ],
           )),

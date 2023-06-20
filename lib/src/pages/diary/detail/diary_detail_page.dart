@@ -89,9 +89,6 @@ class _DiaryDetailState extends State<DiaryDetail> {
             ),
             Html(
               data: diary.qtdd!,
-              style: {
-                "*": Style(color: Colors.grey),
-              },
             ),
           ],
         ));

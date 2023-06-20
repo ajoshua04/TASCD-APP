@@ -33,21 +33,25 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
         key: _con.key,
         appBar: AppBar(),
         drawer: _drawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _imageProfile(),
-              _containerInfo(),
-              _containerDivider(),
-              _buttonEditProfile(),
-              _buttonForgotPassword(),
-              _buttonDeleteProfile()
-            ],
-          ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+              child: _con.user?.id != null
+                  ? Column(
+                      children: [
+                        _imageProfile(),
+                        _containerInfo(),
+                        _containerDivider(),
+                        _buttonEditProfile(),
+                        _buttonForgotPassword(),
+                        _buttonDeleteProfile()
+                      ],
+                    )
+                  : Container()),
         ));
   }
 

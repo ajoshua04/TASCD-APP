@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tascd/src/models/response_api.dart';
 
 import '../api/enviorment.dart';
 import '../models/diary_response.dart';
@@ -39,6 +40,30 @@ class DiariesProvider {
       return responseApi;
     } catch (e) {
       print("Error al traer los diarios : $e");
+      rethrow;
+    }
+  }
+
+  Future<ResponseApi>? createDiary(String qtdd, String userId) async {
+    try {
+      Uri url = Uri.http(_url, '/tascd-api/v1/pampe/');
+      String bodyParams = json.encode({'qtdd': qtdd, 'userId': userId});
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ${sessionUser.accessToken as String}'
+      };
+
+      final response = await http.post(url, headers: headers, body: bodyParams);
+
+      final data = json.decode((response.body));
+
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+
+      print("Info al crear diario : $data");
+
+      return responseApi;
+    } catch (e) {
+      print("Error al crear diario : $e");
       rethrow;
     }
   }

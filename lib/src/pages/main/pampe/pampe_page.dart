@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, unnecessary_new
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:tascd/src/pages/main/pampe/pampe_controller.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
-
+import 'package:quill_html_editor/quill_html_editor.dart';
+import 'package:html_editor_enhanced/html_editor.dart';
 import '../../../utils/my_colors.dart';
 
 class PampePage extends StatefulWidget {
@@ -19,7 +17,7 @@ class PampePage extends StatefulWidget {
 
 class _PampePageState extends State<PampePage> {
   PampeController _con = new PampeController();
-  quill.QuillController _controller = quill.QuillController.basic();
+  HtmlEditorController controller = HtmlEditorController();
 
   @override
   void initState() {
@@ -33,36 +31,6 @@ class _PampePageState extends State<PampePage> {
   void refresh() {
     setState(() {});
   }
-
-  /* @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        //key: _con.key,
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(),
-        drawer: _drawer(),
-        body: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage("assets/images/background_pampe.png"),
-                  fit: BoxFit.fill),
-              color: Colors.grey,
-            )),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  _containerPampe(),
-                  _textQTDD(),
-                  _quillKit(),
-                  _buttonGuardar()
-                ],
-              ),
-            ),
-          ],
-        ));
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +46,7 @@ class _PampePageState extends State<PampePage> {
             )),
         Scaffold(
             backgroundColor: Colors.transparent,
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(),
             body: SingleChildScrollView(
               child: Column(
@@ -98,7 +66,18 @@ class _PampePageState extends State<PampePage> {
     return Container(
         width: double.infinity,
         margin: EdgeInsets.symmetric(horizontal: 20),
-        child: ElevatedButton(onPressed: () {}, child: Text('Guardar')));
+        child: ElevatedButton(
+            onPressed: _con.user?.id != null
+                ? () async {
+                    var txt = await controller.getText();
+                    if (txt.contains('src=\"data:')) {
+                      txt =
+                          '<text removed due to base-64 data, displaying the text could cause the app to crash>';
+                    }
+                    _con.createDiary(txt, _con.user!.id!);
+                  }
+                : () {},
+            child: Text('Guardar')));
   }
 
   Widget _quillKit() {
@@ -106,23 +85,43 @@ class _PampePageState extends State<PampePage> {
       padding: const EdgeInsets.only(top: 18.0),
       child: Column(
         children: [
-          quill.QuillToolbar.basic(controller: _controller),
+          /*Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: ToolBar(
+              toolBarColor: Colors.cyan.shade50,
+              activeIconColor: Colors.green,
+              padding: const EdgeInsets.all(8),
+              iconSize: 20,
+              controller: controller,
+              toolBarConfig: customToolBarList,
+            ),
+          ),*/
           Container(
-            alignment: Alignment.topLeft,
-            width: double.infinity,
-            padding: const EdgeInsets.all(15),
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
-              border: Border.all(color: Colors.grey),
-            ),
-            height: 500,
-            child: quill.QuillEditor.basic(
-              controller: _controller,
-              readOnly: false, // true for view only mode
-            ),
-          )
+              alignment: Alignment.topLeft,
+              width: double.infinity,
+              padding: const EdgeInsets.all(15),
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
+                border: Border.all(color: Colors.grey),
+              ),
+              child: HtmlEditor(
+                otherOptions: OtherOptions(height: 600),
+                controller: controller,
+                htmlToolbarOptions: HtmlToolbarOptions(
+                  defaultToolbarButtons: [
+                    StyleButtons(),
+                    FontSettingButtons(),
+                    FontButtons(),
+                    ColorButtons(),
+                    ListButtons(),
+                    ParagraphButtons(),
+                    InsertButtons(),
+                    OtherButtons(),
+                  ],
+                ),
+              ))
         ],
       ),
     );
@@ -307,171 +306,6 @@ class _PampePageState extends State<PampePage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _drawerItem(
-      {required Color color,
-      required String name,
-      required IconData icon,
-      required Function() onPressed,
-      Key? key}) {
-    return InkWell(
-      onTap: onPressed,
-      child: SizedBox(
-        height: 40,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: 18,
-                color: color,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                name,
-                style: TextStyle(fontSize: 18, color: color),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _drawer() {
-    return Drawer(
-      child: Material(
-        color: Colors.white,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(color: MyColors.primaryColor),
-                child: headerWidget()),
-            Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.53,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 90.0),
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.local_fire_department_outlined,
-                                  size: 22,
-                                  color: Colors.orangeAccent[400],
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text('0 RACHA'),
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Perfil',
-                          icon: Icons.person_pin_rounded,
-                          onPressed: () => {_con.goToProfile()}),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Mi TASCD',
-                          icon: Icons.coffee,
-                          onPressed: () => {_con.goToMain()}),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Mi Diario',
-                          icon: Icons.menu_book,
-                          onPressed: () => {_con.goToDiary()}),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      _drawerItem(
-                          color: Colors.black54,
-                          name: 'Configuración',
-                          icon: Icons.settings,
-                          onPressed: () => {()}),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  height: 10,
-                  color: Colors.grey,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                _drawerItem(
-                    color: Colors.black54,
-                    name: 'Donaciones',
-                    icon: Icons.cases_rounded,
-                    onPressed: () => {_con.logout()}),
-                const SizedBox(
-                  height: 30,
-                ),
-                _drawerItem(
-                    color: Colors.red,
-                    name: 'Cerrar sesion',
-                    icon: Icons.logout,
-                    onPressed: () => {_con.logout()}),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget headerWidget() {
-    return Row(
-      children: [
-        const CircleAvatar(
-          radius: 40,
-          backgroundImage: AssetImage('assets/images/user-profile.jpg'),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 44),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('${_con.user?.firstName} ${_con.user?.lastName}',
-                  style: TextStyle(fontSize: 14, color: Colors.white)),
-              SizedBox(
-                height: 10,
-              ),
-              Text('${_con.user?.email}',
-                  style: TextStyle(fontSize: 14, color: Colors.white)),
-              Divider(
-                thickness: 5,
-                height: 10,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
 }
