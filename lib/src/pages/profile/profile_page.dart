@@ -203,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
           width: 20,
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 25),
+          padding: const EdgeInsets.only(top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
