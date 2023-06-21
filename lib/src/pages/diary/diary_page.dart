@@ -177,7 +177,7 @@ class _DiaryPageState extends State<DiaryPage> {
           width: 20,
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -188,11 +188,6 @@ class _DiaryPageState extends State<DiaryPage> {
               ),
               Text('${_con.user?.email}',
                   style: TextStyle(fontSize: 14, color: Colors.white)),
-              Divider(
-                thickness: 5,
-                height: 10,
-                color: Colors.grey,
-              ),
             ],
           ),
         )
@@ -207,7 +202,7 @@ class _DiaryPageState extends State<DiaryPage> {
         child: Stack(
           children: [
             Positioned(
-              top: -60,
+              top: -75,
               left: -20,
               child: Transform.rotate(
                 angle: 2.9,
@@ -228,18 +223,18 @@ class _DiaryPageState extends State<DiaryPage> {
             ListView(
               padding: EdgeInsets.zero,
               children: [
-                SizedBox(
-                  height: 120,
-                  child: DrawerHeader(
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(color: MyColors.primaryColor),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 25.0),
-                        child: headerWidget(),
-                      )),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: SizedBox(
+                    height: 120,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: headerWidget(),
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10, top: 75),
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 60),
                   child: Column(
                     children: [
                       Container(
