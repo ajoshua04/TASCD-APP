@@ -11,6 +11,7 @@ import 'package:tascd/src/pages/main/main_page.dart';
 import 'package:tascd/src/pages/main/pampe/pampe_page.dart';
 import 'package:tascd/src/pages/profile/profile_page.dart';
 import 'package:tascd/src/pages/register/register_page.dart';
+import 'package:tascd/src/utils/app_theme.dart';
 import 'package:tascd/src/utils/my_colors.dart';
 
 void main() {
@@ -70,10 +71,7 @@ class _MyAppState extends State<MyApp> {
             page: (() => DiaryDetail()),
             transition: Transition.rightToLeft),
       ],
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSwatch().copyWith(primary: MyColors.primaryColor),
-      ),
+      theme: AppTheme(selectedColor: 0).theme(),
     );
   }
 }

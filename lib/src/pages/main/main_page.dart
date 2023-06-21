@@ -192,7 +192,7 @@ class _MainPageState extends State<MainPage> {
                   width: 400,
                   height: 200,
                   decoration: BoxDecoration(
-                    color: MyColors.primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(45),
                     border: Border.all(color: MyColors.primaryColor),
                     boxShadow: const [
