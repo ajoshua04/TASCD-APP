@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:tascd/src/models/app_configuration.dart';
+
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
 String userToJson(User data) => json.encode(data.toJson());
@@ -13,7 +15,7 @@ class User {
   String? password2;
   String? accessToken;
   String? refreshToken;
-  Object? appConfiguration;
+  AppConfiguration? appConfiguration;
 
   User({
     this.id,
@@ -36,7 +38,7 @@ class User {
         password2: json["password2"],
         accessToken: json["accessToken"],
         refreshToken: json["refreshToken"],
-        appConfiguration: json["appConfiguration"],
+        appConfiguration: AppConfiguration.fromJson(json["appConfiguration"]),
       );
 
   Map<String, dynamic> toJson() => {

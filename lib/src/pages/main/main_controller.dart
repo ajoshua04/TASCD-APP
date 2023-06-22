@@ -24,6 +24,8 @@ class MainController {
     this.context = context;
     this.refresh = refresh;
     user = User.fromJson(await _sharedPref.read('user'));
+    print(
+        'el tamaño de la letra del usuario es : ${user!.appConfiguration!.fontSize}');
     refresh();
     await verseProvider.init(context, user!);
     await getVerse();
@@ -62,6 +64,5 @@ class MainController {
     ResponseApi? responseApi = await verseProvider.getVerse();
     Verse verse = Verse.fromJson(responseApi!.data as Map<String, dynamic>);
     htmlData = verse.htmil;
-    print('la data dentro del verso es : ${verse.htmil}');
   }
 }

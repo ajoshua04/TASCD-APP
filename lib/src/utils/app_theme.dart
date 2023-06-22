@@ -21,8 +21,9 @@ class AppTheme {
             'colors must be between 0 and ${_colorThemes.length}');
   ThemeData theme() {
     return ThemeData(
-      colorScheme: ColorScheme.fromSwatch()
-          .copyWith(primary: _colorThemes[selectedColor]),
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        primary: _colorThemes[selectedColor],
+      ),
 
       //brightness: Brightness.dark
     );

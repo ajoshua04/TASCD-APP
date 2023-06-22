@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_new, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tascd/splash.dart';
+import 'package:tascd/src/models/user.dart';
 import 'package:tascd/src/pages/configuration/configuration_page.dart';
 import 'package:tascd/src/pages/diary/detail/diary_detail_page.dart';
 import 'package:tascd/src/pages/diary/diary_page.dart';
@@ -12,7 +13,7 @@ import 'package:tascd/src/pages/main/pampe/pampe_page.dart';
 import 'package:tascd/src/pages/profile/profile_page.dart';
 import 'package:tascd/src/pages/register/register_page.dart';
 import 'package:tascd/src/utils/app_theme.dart';
-import 'package:tascd/src/utils/my_colors.dart';
+import 'package:tascd/src/utils/shared_pref.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

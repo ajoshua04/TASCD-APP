@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -47,23 +47,89 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             )),
             SingleChildScrollView(
               child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20.0,
-                        left: (MediaQuery.of(context).size.height * 0.11)),
-                    child: Text(
-                      'Configuraciones',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                ],
+                children: [_containerItems()],
               ),
             ),
           ],
         ));
+  }
+
+  Widget _inkwelItem(
+      {required String name,
+      required IconData icon,
+      required Function() onPressed}) {
+    return InkWell(
+        onTap: onPressed,
+        child: Container(
+          width: 182,
+          height: 125,
+          padding: const EdgeInsets.all(15),
+          margin: const EdgeInsets.only(top: 10, left: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 1, color: Color.fromARGB(255, 230, 227, 227))
+            ],
+            border: Border.all(color: Colors.grey),
+          ),
+          child: Center(
+              child: Column(
+            children: [
+              Icon(
+                icon,
+                size: 70,
+                color: Colors.grey[700],
+              ),
+              Text(
+                name,
+                style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+              )
+            ],
+          )),
+        ));
+  }
+
+  Widget _containerItems() {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _inkwelItem(
+                  name: 'Letra y Fuentes',
+                  icon: Icons.font_download_outlined,
+                  onPressed: () {}),
+              _inkwelItem(
+                  name: 'Temas y Colores',
+                  icon: Icons.color_lens_outlined,
+                  onPressed: () {})
+            ],
+          ),
+          Row(
+            children: [
+              _inkwelItem(
+                  name: 'Comparte',
+                  icon: Icons.share_outlined,
+                  onPressed: () {}),
+              _inkwelItem(
+                  name: 'Coméntanos',
+                  icon: Icons.comment_outlined,
+                  onPressed: () {})
+            ],
+          ),
+          Row(
+            children: [
+              _inkwelItem(
+                  name: 'Reportar Bugs',
+                  icon: Icons.error_outline,
+                  onPressed: () {})
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget _drawerItem(
