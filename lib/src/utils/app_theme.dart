@@ -23,6 +23,7 @@ class AppTheme {
     return ThemeData(
       colorScheme: ColorScheme.fromSwatch()
           .copyWith(primary: _colorThemes[selectedColor]),
+
       //brightness: Brightness.dark
     );
   }
