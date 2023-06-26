@@ -35,10 +35,15 @@ class _SplashState extends State<Splash> {
   }
 
   _navigateToHome() async {
-    User user = User.fromJson(await _sharedPref.read('user') ?? {});
-    if (user.accessToken != null) {
-      await Future.delayed(Duration(milliseconds: 2000), () {});
-      Get.offAllNamed('/main');
+    if (await _sharedPref.read('user') != null) {
+      User user = User.fromJson(await _sharedPref.read('user') ?? {});
+      if (user.accessToken != null) {
+        await Future.delayed(Duration(milliseconds: 2000), () {});
+        Get.offAllNamed('/main');
+      } else {
+        await Future.delayed(Duration(milliseconds: 2000), () {});
+        Get.offAllNamed('/login');
+      }
     } else {
       await Future.delayed(Duration(milliseconds: 2000), () {});
       Get.offAllNamed('/login');

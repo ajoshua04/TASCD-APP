@@ -24,10 +24,6 @@ class LoginController {
     this.context = context;
     this.refresh = refresh;
     await usersProvider.init(context);
-    User user = User.fromJson(await _sharedPref.read('user') ?? {});
-    if (user.accessToken != null) {
-      Get.offAllNamed('/main');
-    }
     refresh();
   }
 
