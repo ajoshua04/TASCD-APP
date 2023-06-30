@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tascd/splash.dart';
 import 'package:tascd/src/models/user.dart';
+import 'package:tascd/src/pages/configuration/bugs/bugs_page.dart';
+import 'package:tascd/src/pages/configuration/comments/comments_page.dart';
 import 'package:tascd/src/pages/configuration/configuration_page.dart';
+import 'package:tascd/src/pages/configuration/letters_and_fonts/letters_and_fonts_page.dart';
+import 'package:tascd/src/pages/configuration/themes_and_colors/themes_and_colors_page.dart';
 import 'package:tascd/src/pages/diary/detail/diary_detail_page.dart';
 import 'package:tascd/src/pages/diary/diary_page.dart';
 import 'package:tascd/src/pages/login/login_page.dart';
@@ -55,6 +59,22 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/configuration',
             page: (() => ConfigurationPage()),
+            transition: Transition.rightToLeft),
+        GetPage(
+            name: '/configuration/comments',
+            page: (() => CommentsPage()),
+            transition: Transition.rightToLeft),
+        GetPage(
+            name: '/configuration/bugs',
+            page: (() => BugsPage()),
+            transition: Transition.rightToLeft),
+        GetPage(
+            name: '/configuration/themesandcolors',
+            page: (() => ThemesAndColorsPage()),
+            transition: Transition.rightToLeft),
+        GetPage(
+            name: '/configuration/lettersandfonts',
+            page: (() => LettersAndFontsPage()),
             transition: Transition.rightToLeft),
         GetPage(
             name: '/diary',

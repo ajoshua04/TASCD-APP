@@ -44,4 +44,20 @@ class ConfigurationController {
     key.currentState!.closeDrawer();
     Get.offAllNamed('/main');
   }
+
+  void goToComments() {
+    Get.toNamed('/configuration/comments');
+  }
+
+  void goToBugs() {
+    Get.toNamed('/configuration/bugs');
+  }
+
+  void goToThemesAndColors() {
+    Get.toNamed('/configuration/themesandcolors');
+  }
+
+  void goToLettersAndFonts() {
+    Get.toNamed('/configuration/lettersandfonts');
+  }
 }

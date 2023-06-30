@@ -36,22 +36,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
         key: _con.key,
         appBar: AppBar(),
         drawer: _drawer(),
-        body: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage("assets/images/background_qtdd.png"),
-                  fit: BoxFit.fill),
-              color: Colors.white,
-            )),
-            SingleChildScrollView(
-              child: Column(
-                children: [_containerItems()],
-              ),
-            ),
-          ],
-        ));
+        body: _containerItems());
   }
 
   Widget _inkwelItem(
@@ -61,10 +46,8 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
     return InkWell(
         onTap: onPressed,
         child: Container(
-          width: 182,
-          height: 125,
-          padding: const EdgeInsets.all(15),
-          margin: const EdgeInsets.only(top: 10, left: 10),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 28),
+          margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
@@ -84,7 +67,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
               ),
               Text(
                 name,
-                style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                style: TextStyle(fontSize: 30, color: Colors.grey[700]),
               )
             ],
           )),
@@ -93,40 +76,69 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
 
   Widget _containerItems() {
     return Container(
+      height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          Row(
-            children: [
-              _inkwelItem(
-                  name: 'Letra y Fuentes',
-                  icon: Icons.font_download_outlined,
-                  onPressed: () {}),
-              _inkwelItem(
-                  name: 'Temas y Colores',
-                  icon: Icons.color_lens_outlined,
-                  onPressed: () {})
-            ],
+          Expanded(
+            flex: 25,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: _inkwelItem(
+                      name: 'Letra y Fuentes',
+                      icon: Icons.font_download_outlined,
+                      onPressed: () {
+                        _con.goToLettersAndFonts();
+                      }),
+                ),
+                Expanded(
+                  child: _inkwelItem(
+                      name: 'Temas y Colores',
+                      icon: Icons.color_lens_outlined,
+                      onPressed: () {
+                        _con.goToThemesAndColors();
+                      }),
+                )
+              ],
+            ),
           ),
-          Row(
-            children: [
-              _inkwelItem(
-                  name: 'Comparte',
-                  icon: Icons.share_outlined,
-                  onPressed: () {}),
-              _inkwelItem(
-                  name: 'Coméntanos',
-                  icon: Icons.comment_outlined,
-                  onPressed: () {})
-            ],
+          Expanded(
+            flex: 25,
+            child: Row(
+              children: [
+                Expanded(
+                  child: _inkwelItem(
+                      name: 'Comparte',
+                      icon: Icons.share_outlined,
+                      onPressed: () {}),
+                ),
+                Expanded(
+                  child: _inkwelItem(
+                      name: 'Comenta',
+                      icon: Icons.comment_outlined,
+                      onPressed: () {
+                        _con.goToComments();
+                      }),
+                )
+              ],
+            ),
           ),
-          Row(
-            children: [
-              _inkwelItem(
-                  name: 'Reportar Bugs',
-                  icon: Icons.error_outline,
-                  onPressed: () {})
-            ],
-          )
+          Expanded(
+            flex: 25,
+            child: Row(
+              children: [
+                Expanded(
+                  child: _inkwelItem(
+                      name: 'Reportar Bugs',
+                      icon: Icons.error_outline,
+                      onPressed: () {
+                        _con.goToBugs();
+                      }),
+                )
+              ],
+            ),
+          ),
+          Expanded(flex: 25, child: Container())
         ],
       ),
     );
