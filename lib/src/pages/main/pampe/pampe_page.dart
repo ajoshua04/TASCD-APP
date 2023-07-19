@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tascd/src/pages/main/pampe/pampe_controller.dart';
-import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
-import 'package:quill_html_editor/quill_html_editor.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
-import '../../../utils/my_colors.dart';
+
 
 class PampePage extends StatefulWidget {
   const PampePage({super.key});
@@ -109,6 +107,8 @@ class _PampePageState extends State<PampePage> {
                 border: Border.all(color: Colors.grey),
               ),
               child: HtmlEditor(
+                htmlEditorOptions: HtmlEditorOptions(adjustHeightForKeyboard: true,
+                shouldEnsureVisible: true),
                 otherOptions: OtherOptions(height: 600),
                 controller: controller,
                 htmlToolbarOptions: HtmlToolbarOptions(
