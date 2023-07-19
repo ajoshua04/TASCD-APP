@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tascd/src/pages/main/pampe/pampe_controller.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
-
+import 'package:quill_html_editor/quill_html_editor.dart';
 
 class PampePage extends StatefulWidget {
   const PampePage({super.key});
@@ -15,11 +15,35 @@ class PampePage extends StatefulWidget {
 
 class _PampePageState extends State<PampePage> {
   PampeController _con = new PampeController();
-  HtmlEditorController controller = HtmlEditorController();
+  late QuillEditorController controller;
+  final customToolBarList = [
+    ToolBarStyle.bold,
+    ToolBarStyle.italic,
+    ToolBarStyle.align,
+    ToolBarStyle.color,
+    ToolBarStyle.background,
+    ToolBarStyle.listBullet,
+    ToolBarStyle.listOrdered,
+    ToolBarStyle.clean,
+    
+  ];
+  final _toolbarColor = Colors.grey.shade200;
+  final _backgroundColor = Colors.white70;
+  final _toolbarIconColor = Colors.black87;
+  final _editorTextStyle = const TextStyle(
+      fontSize: 18,
+      color: Colors.black,
+      fontWeight: FontWeight.normal,
+      fontFamily: 'Roboto');
+  final _hintTextStyle = const TextStyle(
+      fontSize: 18, color: Colors.black12, fontWeight: FontWeight.normal);
+
+  bool _hasFocus = false;
 
   @override
   void initState() {
     super.initState();
+    controller = QuillEditorController();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
@@ -85,17 +109,6 @@ class _PampePageState extends State<PampePage> {
       padding: const EdgeInsets.only(top: 18.0),
       child: Column(
         children: [
-          /*Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ToolBar(
-              toolBarColor: Colors.cyan.shade50,
-              activeIconColor: Colors.green,
-              padding: const EdgeInsets.all(8),
-              iconSize: 20,
-              controller: controller,
-              toolBarConfig: customToolBarList,
-            ),
-          ),*/
           Container(
               alignment: Alignment.topLeft,
               width: double.infinity,
@@ -106,23 +119,41 @@ class _PampePageState extends State<PampePage> {
                 boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
                 border: Border.all(color: Colors.grey),
               ),
-              child: HtmlEditor(
-                htmlEditorOptions: HtmlEditorOptions(adjustHeightForKeyboard: true,
-                shouldEnsureVisible: true),
-                otherOptions: OtherOptions(height: 600),
+              child: Column(
+                children: [
+                  ToolBar.scroll(
+                toolBarColor: _toolbarColor,
+                padding: const EdgeInsets.all(8),
+                iconSize: 25,
+                iconColor: _toolbarIconColor,
+                activeIconColor: Colors.greenAccent.shade400,
                 controller: controller,
-                htmlToolbarOptions: HtmlToolbarOptions(
-                  defaultToolbarButtons: [
-                    StyleButtons(),
-                    FontSettingButtons(),
-                    FontButtons(),
-                    ColorButtons(),
-                    ListButtons(),
-                    ParagraphButtons(),
-                    InsertButtons(),
-                    OtherButtons(),
-                  ],
-                ),
+                crossAxisAlignment: CrossAxisAlignment.center,
+                direction: Axis.horizontal,
+                toolBarConfig: customToolBarList,
+              ),
+                QuillHtmlEditor(
+                hintText: 'Escribe aqui que te dijo Dios',
+                controller: controller,
+                isEnabled: true,
+                ensureVisible: false,
+                minHeight: 200,
+                textStyle: _editorTextStyle,
+                hintTextStyle: _hintTextStyle,
+                hintTextAlign: TextAlign.start,
+                padding: const EdgeInsets.only(left: 10, top: 10),
+                hintTextPadding: const EdgeInsets.only(left: 20),
+                backgroundColor: _backgroundColor,
+                loadingBuilder: (context) {
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    strokeWidth: 0.4,
+                  ));
+                },
+                
+              ),
+              
+                ],
               ))
         ],
       ),
