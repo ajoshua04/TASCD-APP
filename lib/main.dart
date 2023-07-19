@@ -18,8 +18,13 @@ import 'package:tascd/src/pages/profile/profile_page.dart';
 import 'package:tascd/src/pages/register/register_page.dart';
 import 'package:tascd/src/utils/app_theme.dart';
 import 'package:tascd/src/utils/shared_pref.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

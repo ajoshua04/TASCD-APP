@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "553953274955",
+    "project_id": "tascd-app",
+    "storage_bucket": "tascd-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553953274955:android:f4711b4844e1ad7290f1ce",
+        "android_client_info": {
+          "package_name": "com.example.tascd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553953274955-p8bc3vq21q6o1b2qrf4tij1ftucudgp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1upXmBfa_u73Owc80sHQ53zAfSeoBtz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553953274955-p8bc3vq21q6o1b2qrf4tij1ftucudgp1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "553953274955-mui982c67epap4nsiq9fn3vu8gr7u09f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tascd"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

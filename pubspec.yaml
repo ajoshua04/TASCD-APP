@@ -49,6 +49,7 @@ dependencies:
   flutter_svg: ^2.0.7
   quill_html_editor: ^2.1.9
   html_editor_enhanced: ^2.5.1
+  firebase_core: ^2.15.0
   
  
   
