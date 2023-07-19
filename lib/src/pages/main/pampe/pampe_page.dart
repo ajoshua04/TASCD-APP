@@ -158,7 +158,7 @@ class _PampePageState extends State<PampePage> {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'Toma nota de tus conversaciones con Dios',
+              'Toma nota de tus conversaciones con Diossss',
               style: TextStyle(
                   color: const Color.fromARGB(255, 95, 95, 95), fontSize: 13),
             ),
