@@ -35,6 +35,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
         key: _con.key,
         appBar: AppBar(),
         drawer: _drawer(),

@@ -15,35 +15,13 @@ class PampePage extends StatefulWidget {
 
 class _PampePageState extends State<PampePage> {
   PampeController _con = new PampeController();
-  late QuillEditorController controller;
-  final customToolBarList = [
-    ToolBarStyle.bold,
-    ToolBarStyle.italic,
-    ToolBarStyle.align,
-    ToolBarStyle.color,
-    ToolBarStyle.background,
-    ToolBarStyle.listBullet,
-    ToolBarStyle.listOrdered,
-    ToolBarStyle.clean,
-    
-  ];
-  final _toolbarColor = Colors.grey.shade200;
-  final _backgroundColor = Colors.white70;
-  final _toolbarIconColor = Colors.black87;
-  final _editorTextStyle = const TextStyle(
-      fontSize: 18,
-      color: Colors.black,
-      fontWeight: FontWeight.normal,
-      fontFamily: 'Roboto');
-  final _hintTextStyle = const TextStyle(
-      fontSize: 18, color: Colors.black12, fontWeight: FontWeight.normal);
 
-  bool _hasFocus = false;
+  HtmlEditorController hcontroller = HtmlEditorController();
+  
 
   @override
   void initState() {
     super.initState();
-    controller = QuillEditorController();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
@@ -93,7 +71,7 @@ class _PampePageState extends State<PampePage> {
         child: ElevatedButton(
             onPressed: _con.user?.id != null
                 ? () async {
-                    var txt = await controller.getText();
+                    var txt = await hcontroller.getText();
                     if (txt.contains('src=\"data:')) {
                       txt =
                           '<text removed due to base-64 data, displaying the text could cause the app to crash>';
@@ -119,43 +97,26 @@ class _PampePageState extends State<PampePage> {
                 boxShadow: const [BoxShadow(blurRadius: 1, color: Colors.grey)],
                 border: Border.all(color: Colors.grey),
               ),
-              child: Column(
-                children: [
-                  ToolBar.scroll(
-                toolBarColor: _toolbarColor,
-                padding: const EdgeInsets.all(8),
-                iconSize: 25,
-                iconColor: _toolbarIconColor,
-                activeIconColor: Colors.greenAccent.shade400,
-                controller: controller,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                direction: Axis.horizontal,
-                toolBarConfig: customToolBarList,
-              ),
-                QuillHtmlEditor(
-                hintText: 'Escribe aqui que te dijo Dios',
-                controller: controller,
-                isEnabled: true,
-                ensureVisible: false,
-                minHeight: 200,
-                textStyle: _editorTextStyle,
-                hintTextStyle: _hintTextStyle,
-                hintTextAlign: TextAlign.start,
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                hintTextPadding: const EdgeInsets.only(left: 20),
-                backgroundColor: _backgroundColor,
-                loadingBuilder: (context) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    strokeWidth: 0.4,
-                  ));
-                },
-                
-              ),
+              child: 
+              HtmlEditor(
+                htmlEditorOptions: HtmlEditorOptions(adjustHeightForKeyboard: false,
+                shouldEnsureVisible: true),
+                controller: hcontroller,
+                htmlToolbarOptions: HtmlToolbarOptions(
+                  defaultToolbarButtons: [
+                    
+                    
+                    FontButtons(),
+                    ColorButtons(),
+                    ListButtons(),
+                    ParagraphButtons(),
+                    
+                    
+                  ],
+                ),
+                  )
               
-                ],
-              ))
-        ],
+      )]
       ),
     );
   }
