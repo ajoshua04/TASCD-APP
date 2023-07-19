@@ -46,7 +46,7 @@ class _PampePageState extends State<PampePage> {
             )),
         Scaffold(
             backgroundColor: Colors.transparent,
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(),
             body: Container(
               child: SingleChildScrollView(
@@ -109,7 +109,6 @@ class _PampePageState extends State<PampePage> {
                 border: Border.all(color: Colors.grey),
               ),
               child: HtmlEditor(
-                
                 otherOptions: OtherOptions(height: 600),
                 controller: controller,
                 htmlToolbarOptions: HtmlToolbarOptions(
@@ -158,7 +157,7 @@ class _PampePageState extends State<PampePage> {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'Toma nota de tus conversaciones con Diossss',
+              'Toma nota de tus conversaciones con Dios',
               style: TextStyle(
                   color: const Color.fromARGB(255, 95, 95, 95), fontSize: 13),
             ),
