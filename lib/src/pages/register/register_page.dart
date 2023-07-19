@@ -29,36 +29,38 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        width: double.infinity,
-        child: Stack(
-          children: [
-            Positioned(top: -80, left: -100, child: _circleRegister()),
-            Positioned(top: 65, left: 27, child: _textRegister()),
-            Positioned(top: 51, left: -5, child: _iconBack()),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 150),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                  ),
-                  _textFieldEmail(),
-                  _textFieldName(),
-                  _textFieldLastName(),
-                  //_textFieldPhone(),
-                  _textFieldPassword(),
-                  _textFieldConfirmPassword(),
-                  _buttonRegister()
-                ],
+        body: Container(
+          child: SingleChildScrollView(
+              child: Container(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Positioned(top: -80, left: -100, child: _circleRegister()),
+              Positioned(top: 65, left: 27, child: _textRegister()),
+              Positioned(top: 51, left: -5, child: _iconBack()),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 150),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 70,
+                    ),
+                    _textFieldEmail(),
+                    _textFieldName(),
+                    _textFieldLastName(),
+                    //_textFieldPhone(),
+                    _textFieldPassword(),
+                    _textFieldConfirmPassword(),
+                    _buttonRegister()
+                  ],
+                ),
+              ),
+            ],
+          ),
               ),
             ),
-          ],
-        ),
-      ),
-    ));
+        ));
   }
 
   Widget _buttonRegister() {

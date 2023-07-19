@@ -48,14 +48,16 @@ class _PampePageState extends State<PampePage> {
             backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset: true,
             appBar: AppBar(),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _containerPampe(),
-                  _textQTDD(),
-                  _quillKit(),
-                  _buttonGuardar()
-                ],
+            body: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _containerPampe(),
+                    _textQTDD(),
+                    _quillKit(),
+                    _buttonGuardar()
+                  ],
+                ),
               ),
             )),
       ],

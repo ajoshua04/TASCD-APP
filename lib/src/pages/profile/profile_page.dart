@@ -39,19 +39,21 @@ class _ProfilePageState extends State<ProfilePage> {
         drawer: _drawer(),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-              child: _con.user?.id != null
-                  ? Column(
-                      children: [
-                        _imageProfile(),
-                        _containerInfo(),
-                        _containerDivider(),
-                        _buttonEditProfile(),
-                        _buttonForgotPassword(),
-                        _buttonDeleteProfile()
-                      ],
-                    )
-                  : Container()),
+          child: Container(
+            child: SingleChildScrollView(
+                child: _con.user?.id != null
+                    ? Column(
+                        children: [
+                          _imageProfile(),
+                          _containerInfo(),
+                          _containerDivider(),
+                          _buttonEditProfile(),
+                          _buttonForgotPassword(),
+                          _buttonDeleteProfile()
+                        ],
+                      )
+                    : Container()),
+          ),
         ));
   }
 

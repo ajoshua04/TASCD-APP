@@ -47,9 +47,11 @@ class _MainPageState extends State<MainPage> {
                   fit: BoxFit.fill),
               color: Colors.white,
             )),
-            SingleChildScrollView(
-              child: Column(
-                children: [_tascdText(), _htmlContainer(), _buttonQTDD()],
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [_tascdText(), _htmlContainer(), _buttonQTDD()],
+                ),
               ),
             ),
           ],

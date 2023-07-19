@@ -29,28 +29,30 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        width: double.infinity,
-        child: Stack(
-          children: [
-            Positioned(top: -80, left: -100, child: _circleLogin()),
-            Positioned(top: 60, left: 25, child: _textLogin()),
-            Column(
-              children: [
-                _imageBanner(),
-                //_lottieAnimation(),
-                _textFieldEmail(),
-                _textFieldPassword(),
-                _buttonLogin(),
-                _textDontHaveAccount()
-              ],
+        body: Container(
+          child: SingleChildScrollView(
+              child: Container(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Positioned(top: -80, left: -100, child: _circleLogin()),
+              Positioned(top: 60, left: 25, child: _textLogin()),
+              Column(
+                children: [
+                  _imageBanner(),
+                  //_lottieAnimation(),
+                  _textFieldEmail(),
+                  _textFieldPassword(),
+                  _buttonLogin(),
+                  _textDontHaveAccount()
+                ],
+              ),
+              _progressIndicator(),
+            ],
+          ),
+              ),
             ),
-            _progressIndicator(),
-          ],
-        ),
-      ),
-    ));
+        ));
   }
 
   void refresh() {

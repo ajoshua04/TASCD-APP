@@ -48,20 +48,22 @@ class _DiaryPageState extends State<DiaryPage> {
                   fit: BoxFit.fill),
               color: Colors.white,
             )),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  _con.diaries != null
-                      ? ListView(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: _con.diaries != null
-                              ? _con.diaries!.map((Diary diary) {
-                                  return _containerDiary(diary);
-                                }).toList()
-                              : [])
-                      : _loadingWidget()
-                ],
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _con.diaries != null
+                        ? ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: _con.diaries != null
+                                ? _con.diaries!.map((Diary diary) {
+                                    return _containerDiary(diary);
+                                  }).toList()
+                                : [])
+                        : _loadingWidget()
+                  ],
+                ),
               ),
             )
           ],
