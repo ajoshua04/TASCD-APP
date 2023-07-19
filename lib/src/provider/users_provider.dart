@@ -22,7 +22,7 @@ class UsersProvider {
 
   Future<ResponseApi>? create(User user) async {
     try {
-      Uri url = Uri.http(_url, '/tascd-api/v1/auth/register');
+      Uri url = Uri.https(_url, '/tascd-api/v1/auth/register');
       String bodyParams = json.encode(user);
       Map<String, String> headers = {
         'Content-type': 'application/json',
@@ -45,7 +45,7 @@ class UsersProvider {
 
   Future<ResponseApi>? login(String email, String password) async {
     try {
-      Uri url = Uri.http(_url, '/tascd-api/v1/auth/login');
+      Uri url = Uri.https(_url, '/tascd-api/v1/auth/login');
       String bodyParams = json.encode({'email': email, 'password': password});
       Map<String, String> headers = {
         'Content-type': 'application/json',

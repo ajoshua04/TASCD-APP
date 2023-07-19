@@ -23,7 +23,7 @@ class DiariesProvider {
 
   Future<DiaryResponseApi>? getDiaries() async {
     try {
-      Uri url = Uri.http(_url, '/tascd-api/v1/home/diary/${sessionUser.id}');
+      Uri url = Uri.https(_url, '/tascd-api/v1/home/diary/${sessionUser.id}');
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': 'Bearer ${sessionUser.accessToken as String}'
@@ -46,7 +46,7 @@ class DiariesProvider {
 
   Future<ResponseApi>? createDiary(String qtdd, String userId) async {
     try {
-      Uri url = Uri.http(_url, '/tascd-api/v1/pampe/');
+      Uri url = Uri.https(_url, '/tascd-api/v1/pampe/');
       String bodyParams = json.encode({'qtdd': qtdd, 'userId': userId});
       Map<String, String> headers = {
         'Content-type': 'application/json',

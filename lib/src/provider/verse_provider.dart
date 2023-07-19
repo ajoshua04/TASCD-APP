@@ -22,7 +22,7 @@ class VerseProvider {
 
   Future<ResponseApi>? getVerse() async {
     try {
-      Uri url = Uri.http(_url, '/tascd-api/v1/home/');
+      Uri url = Uri.https(_url, '/tascd-api/v1/home/');
       Map<String, String> headers = {
         'Content-type': 'application/json',
         'Authorization': 'Bearer ${sessionUser.accessToken as String}'
