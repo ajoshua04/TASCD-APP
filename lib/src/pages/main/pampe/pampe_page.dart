@@ -46,7 +46,7 @@ class _PampePageState extends State<PampePage> {
             )),
         Scaffold(
             backgroundColor: Colors.transparent,
-            resizeToAvoidBottomInset: true,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(),
             body: Container(
               child: SingleChildScrollView(
@@ -109,6 +109,7 @@ class _PampePageState extends State<PampePage> {
                 border: Border.all(color: Colors.grey),
               ),
               child: HtmlEditor(
+                
                 otherOptions: OtherOptions(height: 600),
                 controller: controller,
                 htmlToolbarOptions: HtmlToolbarOptions(
