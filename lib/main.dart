@@ -41,65 +41,68 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "App TASCD",
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
-      getPages: [
-        GetPage(
-            name: '/splash',
-            page: (() => Splash()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/login',
-            page: (() => LoginPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/register',
-            page: (() => RegisterPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/main',
-            page: (() => MainPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/configuration',
-            page: (() => ConfigurationPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/configuration/comments',
-            page: (() => CommentsPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/configuration/bugs',
-            page: (() => BugsPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/configuration/themesandcolors',
-            page: (() => ThemesAndColorsPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/configuration/lettersandfonts',
-            page: (() => LettersAndFontsPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/diary',
-            page: (() => DiaryPage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/profile',
-            page: (() => ProfilePage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/pampe',
-            page: (() => PampePage()),
-            transition: Transition.rightToLeft),
-        GetPage(
-            name: '/diary/detail',
-            page: (() => DiaryDetail()),
-            transition: Transition.rightToLeft),
-      ],
-      theme: AppTheme(selectedColor: 0).theme(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: GetMaterialApp(
+        title: "App TASCD",
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/splash',
+        getPages: [
+          GetPage(
+              name: '/splash',
+              page: (() => Splash()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/login',
+              page: (() => LoginPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/register',
+              page: (() => RegisterPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/main',
+              page: (() => MainPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/configuration',
+              page: (() => ConfigurationPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/configuration/comments',
+              page: (() => CommentsPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/configuration/bugs',
+              page: (() => BugsPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/configuration/themesandcolors',
+              page: (() => ThemesAndColorsPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/configuration/lettersandfonts',
+              page: (() => LettersAndFontsPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/diary',
+              page: (() => DiaryPage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/profile',
+              page: (() => ProfilePage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/pampe',
+              page: (() => PampePage()),
+              transition: Transition.rightToLeft),
+          GetPage(
+              name: '/diary/detail',
+              page: (() => DiaryDetail()),
+              transition: Transition.rightToLeft),
+        ],
+        theme: AppTheme(selectedColor: 0).theme(),
+      ),
     );
   }
 }
