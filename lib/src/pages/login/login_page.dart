@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../models/user.dart';
 import '../../utils/my_colors.dart';
+import '../../utils/shared_pref.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginController _con = LoginController();
+  SharedPref _sharedPref = new SharedPref();
 
   @override
   void initState() {
@@ -209,5 +213,14 @@ class _LoginPageState extends State<LoginPage> {
         )
       ],
     );
+  }
+
+  _navigateToHome() async {
+    if (await _sharedPref.read('user') != null) {
+      User user = User.fromJson(await _sharedPref.read('user') ?? {});
+      if (user.accessToken != null) {
+        Get.offAllNamed('/main');
+      } 
+  }
   }
 }
